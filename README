@@ -1,0 +1,7 @@
+A collection of data and some notebooks used for processing groundwater data.
+
+The data was obtained from [DINOloket](https://www.dinoloket.nl/en):
+>DINOloket provides access to the largest databank on the ground beneath the Netherlands. This databank, known by the acronym DINO, is the single clearinghouse for geo data on the shallow and deep geology of the Netherlands. It comprises borehole data, groundwater data, cone penetration test data, vertical electrical soundings, the results of geological, chemical and mechanical sample analyses, borehole logs and seismic data.
+
+Since there is so much available and we only had a weekend to work with it, we only looked at the groundwater levels and the groundwater composition.
+Details of the data and how it is arranged in the files are located in [meta](METADATA).

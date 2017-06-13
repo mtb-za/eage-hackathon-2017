@@ -1,0 +1,90 @@
+There are two types of data that were looked at: groundwater levels and groundwater composition. Some basic details of the data are given below. The headers and metadata are given in Dutch, so a (rough) translation is also supplied.
+
+## Groundwater-Levels
+
+There are two distinct sets of groundwater level data files. In some cases these are for the same borehole, and are easily distinguished by `*_0.csv` or `*_1.csv`.
+
+The files can be split into two sections. One is a metadata/header, while the other section contains the data. A notebook for reading these into a pandas DataFrame is available.
+
+### *_0.csv
+Files like this contain the following rows:
+
+#### Metadata Section
+
+|Item | | Description|
+|-|-|-|
+|Titel: | | _This seems to be blank in most cases._ |
+|Gebruikersnaam: | | _User's name._ |
+|Periode aangevraagd: | 01/01/1800-10/06/2017 | _Period for which data is being requested._ |
+|Datum: | 10/06/2017 | _Date the data was requested on._ |
+|Referentie: | Maaiveld (MV) | _height reference. **Maaiveld** is ground level._ |
+
+| LOCATIE | FILTERNUMMER | EXTERNE AANDUIDING | X-COORDINAAT | Y-COORDINAAT | MAAIVELD NAP | GESCHAT | MEETPUNT NAP | BOVENKANT FILTER | ONDERKANT FILTER | START DATUM | EIND DATUM |
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| Borehole Code |  Filter Number | external picture | X-Coordinate | Y-Coordinate | main NAP | History | NAP point | Top of filter | Bottom of filter | Start date | End date |
+| B24F0005 | 001 | 24FP0001 | 99680 | 493440 | 643 |  | 690 | -490 | -590 | 1956/01/17 | 2015/09/14 |
+
+#### Data Section
+
+| LOCATIE | FILTERNUMMER | PEIL DATUM TIJD | STAND (MV) | BIJZONDERHEID |
+|:-:|:-:|:-:|:-:|:-:|
+| Borehole Code | Filter Number? | Level's Date and Time | Depth (From Groundlevel) | Comments? (Seems to be blank) |
+|B24F0005|001|1956/01/17 00:00:00|296| _ _ |
+
+### *_1.csv
+Files like this contain the following rows:
+
+#### Metadata Section
+
+|Item| | |Description|
+|-|-|-|
+|Titel:| | | |
+|Gebruikersnaam:| | | |
+|Periode aangevraagd: | 01-01-1800 | tot: 10-06-2017 | _Date range requested._ |
+|Gegevens beschikbaar: | 17-01-1956 | tot:	03-09-2015 | _Date range available._ |
+|Datum: | 10-06-2017 | | _Date requested_ |
+|Referentie:|NAP | | _Level datum_
+
+|Definitions| Dutch | English |
+|-|-|-|
+|NAP:|Normaal Amsterdams Peil|_- Normal Amsterdam Level_|
+|MV:|Maaiveld|_- Ground Level_|
+|MP:|Meetpunt|_- Measurement Point_|
+
+
+| Locatie | Filternummer | Externe aanduiding | X-coordinaat | Y-coordinaat | Maaiveld (cm t.o.v. NAP) | Datum maaiveld gemeten  | Startdatum | Einddatum  | Meetpunt (cm t.o.v. NAP) | Meetpunt (cm t.o.v. MV) | Bovenkant filter (cm t.o.v. NAP) | Onderkant filter (cm t.o.v. NAP) |
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| Borehole | Filter Number? | External reference | X-coordinate | Y-coordinate | Groundlevel relative to NAP | Date of measurement of groundlevel | Start date | End date | Measurement point relative to NAP | Measuring point relative to surface | Top of filter to NAP | Bottom of filter to NAP |
+| B24F0005 | 002 | 24FP0001 | 99680 | 493440 | 643 | 01-01-1911 | 17-01-1956 | 14-09-2015 | 690 | 47 | -2691 | -2791 |
+
+#### Data Section
+
+| Locatie | Filternummer | Peildatum | Stand (cm t.o.v. MP) | Stand (cm t.o.v. MV) | Stand (cm t.o.v. NAP) | Bijzonderheid | Opmerking |
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| Borehole | Filter number? | Date of level | Level relative to measurement point | Level relative to Groundlevel | Level relative to NAP | Particulars (comment?) | Comment |
+| B24F0005  | 002  | 17-01-1956  | 601  | 554  | 89  |  |  |
+
+## Groundwater Composition
+
+These files also have two sections. Unfortunately the data sections are not consistent, so reading everything in properly is difficult. The columns vary from borehole to borehole, and depends on what analysis was actually done.
+
+The original files are given as tab-separated values, while pandas is happier with comma-separated values. The notebook for these has something to convert the tsv files to csv files for further analysis.
+
+### Metadata Section
+The metadata does appear to be consistent, so this example should serve as a good guideline.
+
+| LOCATIE gegevens   |   |   |   |   |   |   |   |   |   |   |   |   |
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| NITG-nr   | X-coord   | Y-coord   | Coordinaat systeem   | Kaartblad   | Bepaling locatie   | Maaiveldhoogte (m tov NAP)   | Bepaling maaiveldhoogte | OLGA-nr   | RIVM-nr   | Aantal analyses | Meetnet   | Indeling   |
+| NITG-nr   | X-coord   | Y-coord   | Coordinate system   | Map Sheet | Determination Location | Ground Level (m in terms of NAP)   | Determination Ground Level | OLGA number | RIVM-nr | Total analyses | Measuring Network | Comment |
+| B24F0003   | 99277   | 491408   | Rijksdriehoeksmeting (Kingdom's Triangulation) | 24F   |   | 6.2   |   | 24FA3003   |   | 31   |   |   |
+
+### Data Section
+
+A typical data section looks something like the following:
+
+| KWALITEIT gegevens VLOEIBAAR |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| NITG-nr   | Monster datum | Monster-nr   | Monster apparatuur   | Mengmonster | Bovenkant monster (cm tov MV) | Onderkant monster (cm tov MV) | Analyse datum   | Ca (mg/l) | Cl- (mg/l) | EC (mS/m)   | EC (uS/cm) | Fe (mg/l) | HCO3 (mg/l) | K (mg/l) | KLEUR (mgPt/l) | KMNO4V-O (mg/l) | Mg (mg/l) | Mn (mg/l) | NH4 (mg/l) | NH4-ORG (mg/l) | NO2 (mg/l) | NO3 (mg/l) | Na (mg/l) | NaHCO3 (mg/l) | O-PO4 (mg/l) | SO4 (mg/l) | SiO2 (mg/l) | TEMP-V (C) | TOTH (mmol/l) | pH (-) |
+| NITG-nr   | Sample Date | Sample Number | Sample Method   | Mixed sample? | Top of sample (cm relative to MV) | Bottom of sample (cm relative to MV) | Analysis Date | Ca (mg/l) | Cl- (mg/l) | Electroconductivity (mS/m) | Electroconductivity (uS/cm) Fe (mg/l) | HCO3 (mg/l) | K (mg/l) | Colour? (mgPt/l) | KMNO4V-O (mg/l) | Mg (mg/l) | Mn (mg/l) | NH4 (mg/l) | Organic NH4 (mg/l) | NO2 (mg/l) | NO3 (mg/l) | Na (mg/l) | NaHCO3 (mg/l) | O-PO4 (mg/l) | SO4 (mg/l) | SiO2 (mg/l) | TEMP-V (C) | TOTH (mmol/l) | pH (-) |
+| B24F0003   |   | C1911-07-1009 |   | nee (No) | 2050   | 2150   | 15-07-1911   | 79.7   | 37.8   |   | 45.98   | 0.9   |   |   | 0   | 0.95   | 6.9   | 0.2   | 0.15   | 0   | 0   | 0   |   |   |   | 28.7   | 24.4   | 18   | 2.311   |   | _ _ |
